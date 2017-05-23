@@ -9,7 +9,7 @@
 	<nav>
 		<ul>
 			<li><a href="#">Iniciar sesion</a></li>
-			<li><a href="#">Registrarse</a></li>
+			<li><a href="registro.php">Registrarse</a></li>
 			<input type="text" placeholder="Buscar">
 		</ul>
 	</nav>
@@ -21,4 +21,6 @@
 		<div class="foto"></div>
 	</section>
 </body>
+<script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="script/script.js"></script>
 </html>

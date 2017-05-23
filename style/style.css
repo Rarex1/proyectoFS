@@ -39,3 +39,17 @@ nav ul li, nav ul li a
 	background-color: red;
 	margin: 30px;
 }
+.contRegistro
+{
+	width: 100%;
+	height: calc(100vh - 45px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.contRegistro .formRegistro
+{
+	width: 50px;
+	height: 50px;
+	background-color: black;
+}
