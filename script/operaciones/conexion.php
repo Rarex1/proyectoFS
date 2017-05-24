@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 	class conexion
 	{
 		public $conexion;
@@ -18,6 +18,7 @@
 		public function conectar()
 		{
 			$this->conexion = mysqli_connect($this->server,$this->usuario,$this->clave,$this->bd) or die('No se pudo conectar: '.mysql_error());
+			mysql_query("SET NAMES 'utf8'");
 			return $this->conexion;
 		}
 

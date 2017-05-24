@@ -1,8 +1,8 @@
 <?php 
 	require_once('script/operaciones/conexion.php');
+	header("Content-Type: text/html;charset=utf-8");
 	$conexion = new conexion;
 	$link = $conexion->conectar();
-
 	$sql = "SELECT * FROM `rol` WHERE id_Rol <> 1 AND id_Rol <> 4;";
 	$resultado = $link->query($sql);
 
@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>First Sight - Registro</title>
 	<link rel="stylesheet" href="style/style.css">
 </head>
