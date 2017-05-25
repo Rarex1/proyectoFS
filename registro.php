@@ -45,7 +45,6 @@
 				<input type="email" placeholder="Correo">
 				<input type="password" placeholder="Clave">
 				<input type="password" placeholder="Repite la clave">
-				<!-- rol -->
 				<!-- Nacionalidad -->
 				<!-- Comuna -->
 				<input type="text" placeholder="Telefono">
