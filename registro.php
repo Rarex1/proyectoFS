@@ -1,8 +1,7 @@
 <?php 
 	require_once('script/operaciones/conexion.php');
-	header("Content-Type: text/html;charset=utf-8");
 	$conexion = new conexion;
-	$link = $conexion->conectar();
+	$link = mysqli_connect("localhost","root","","mydb");
 	$sql = "SELECT * FROM `rol` WHERE id_Rol <> 1 AND id_Rol <> 4;";
 	$resultado = $link->query($sql);
 
@@ -16,7 +15,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>First Sight - Registro</title>
 	<link rel="stylesheet" href="style/style.css">
 </head>
@@ -31,6 +30,14 @@
 	<div class="contRegistro">
 		<div class="formRegistro">
 			<form action="script/operaciones/registrar.php" method="POST">
+				<select name="" id="">
+				<?php
+					while ($linea = mysqli_fetch_array($resultado)) 
+					{
+						echo "<option value='".$linea['id_Rol']."'>".utf8_encode($linea['tipo'])."</option>";
+					}
+				?>
+				</select>
 				<input type="text" placeholder="Nombres">
 				<input type="text" placeholder="Primer apellido">
 				<input type="text" placeholder="Segundo apellido">
@@ -38,14 +45,6 @@
 				<input type="email" placeholder="Correo">
 				<input type="password" placeholder="Clave">
 				<input type="password" placeholder="Repite la clave">
-				<select name="" id="">
-				<?php
-					while ($linea = mysqli_fetch_array($resultado)) 
-					{
-						echo "<option value='".$linea['id_Rol']."'>".$linea['tipo']."</option>";
-					}
-				?>
-				</select>
 				<!-- rol -->
 				<!-- Nacionalidad -->
 				<!-- Comuna -->
