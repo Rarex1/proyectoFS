@@ -32,7 +32,6 @@
 		        xmlhttp.onreadystatechange = function() {
 		            if (this.readyState == 4 && this.status == 200) {
 		                document.getElementById("comuna").innerHTML = this.responseText;
-		                console.log(this.responseText);
 		            }
 		        };
 		        xmlhttp.open("GET","script/operaciones/consultarComuna.php?q="+str,true);
@@ -51,8 +50,8 @@
 	</nav>
 	<div class="contRegistro">
 		<div class="formRegistro">
-			<form action="script/operaciones/registrar.php" method="GET">
-				<select name="" id="">
+			<form action="script/operaciones/registrar.php" method="POST">
+				<select name="rol" id="">
 				<?php
 					while ($linea = mysqli_fetch_array($resultado)) 
 					{
@@ -60,13 +59,13 @@
 					}
 				?>
 				</select>
-				<input type="text" placeholder="Nombres">
-				<input type="text" placeholder="Primer apellido">
-				<input type="text" placeholder="Segundo apellido">
-				<input type="text" placeholder="Nick">
-				<input type="email" placeholder="Correo">
-				<input type="password" placeholder="Clave">
-				<input type="password" placeholder="Repite la clave">
+				<input type="text" name="nombres" placeholder="Nombres">
+				<input type="text" name="apellidoP" placeholder="Primer apellido">
+				<input type="text" name="apellidoM" placeholder="Segundo apellido">
+				<input type="text" name="nick" placeholder="Nick">
+				<input type="email" name="correo" placeholder="Correo">
+				<input type="password" name="clave" placeholder="Clave">
+				<input type="password" name="verificacionClave" placeholder="Repite la clave">
 				<select name="pais" id="">
 					<?php 
 						$sql = "select * from pais;";
@@ -77,20 +76,20 @@
 						}
 					 ?>
 				</select>
-				<select name="regiones" id="" onchange="showComunas(this.value)">
+				<select name="region" id="" onchange="showComunas(this.value)">
 					<?php 
 						$sql = "select * from region;";
 						$resultado = $link->query($sql);
+						echo "<option value=''>Seleccione la region</option>";
 						while ($linea = mysqli_fetch_array($resultado)) 
 						{
 							echo "<option value='".$linea['id_Region']."'>".utf8_encode($linea['nombre_region'])."</option>";
 						}
 					 ?>
 				</select>
-				<select name="comuna" id="comuna">
-					
-				</select>
-				<input type="text" placeholder="Telefono">
+				<select name="comuna" id="comuna"></select>
+				<input type="text" name="telefono" placeholder="Telefono">
+				<input type="submit" value="Registrar">
 			</form>
 		</div>
 	</div>

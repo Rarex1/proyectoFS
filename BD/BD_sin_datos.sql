@@ -111,12 +111,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
   `comuna` INT NULL,
   `telefono` VARCHAR(13) NOT NULL,
   `fecha_registro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_region` INT NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE INDEX `nick_UNIQUE` (`nick` ASC),
   INDEX `fk_nacionalidad_idx` (`id_nacionalidad` ASC),
   INDEX `fk_rol_idx` (`rol` ASC),
   INDEX `fk_comuna_idx` (`comuna` ASC),
   UNIQUE INDEX `id_usuario_UNIQUE` (`id_usuario` ASC),
+  INDEX `fk_usuario_region_idx` (`id_region` ASC),
   CONSTRAINT `fk_nacionalidad`
     FOREIGN KEY (`id_nacionalidad`)
     REFERENCES `mydb`.`Pais` (`id_pais`)
@@ -130,6 +132,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
   CONSTRAINT `fk_comuna`
     FOREIGN KEY (`comuna`)
     REFERENCES `mydb`.`Comuna` (`id_comuna`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuario_region`
+    FOREIGN KEY (`id_region`)
+    REFERENCES `mydb`.`Region` (`id_Region`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
