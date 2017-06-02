@@ -17,7 +17,7 @@
 	require_once('conexion.php');
 	$conexion = new conexion();
 	$link = $conexion->conectar();
-	$sql = "insert into usuario (nombres,ape_paterno,ape_materno,nick,correo,rol,id_nacionalidad,id_region,comuna,telefono) values('".$nombres."','".$apellidoP."','".$apellidoM."','".$nick."','".$correo."',".$rol.",".$pais.",".$region.",".$comuna.",".$telefono.")";
+	$sql = "call registrar('".$nombres."','".$apellidoP."','".$apellidoM."','".$nick."','".$correo."','".$clave."',".$pais.",".$region.",".$comuna.",".$telefono.",".$rol.")";
 	if($link->query($sql) === TRUE)
 	{
 		echo "Se ingresaron correctamente los datos";

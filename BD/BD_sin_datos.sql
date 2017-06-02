@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
   `gustos` LONGTEXT NULL,
   `id_seguidos` LONGTEXT NULL,
   `seguidores` LONGTEXT NULL,
-  `portada_img` BLOB NOT NULL,
-  `perfil_img` BLOB NOT NULL,
+  `portada_img` BLOB NULL,
+  `perfil_img` BLOB NULL,
   `comuna` INT NULL,
   `telefono` VARCHAR(13) NOT NULL,
   `fecha_registro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -213,7 +213,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`Validacion` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`Validacion` (
-  `id_usuario` INT NOT NULL,
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `pass` MEDIUMTEXT NOT NULL,
   INDEX `FK_ID_USUARIO_idx` (`id_usuario` ASC),
   CONSTRAINT `FK_ID_USUARIO`
@@ -278,6 +278,34 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contactos` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- procedure registrar
+-- -----------------------------------------------------
+
+USE `mydb`;
+DROP procedure IF EXISTS `mydb`.`registrar`;
+
+DELIMITER $$
+USE `mydb`$$
+CREATE PROCEDURE `registrar` (
+  IN _nombres varchar(45),
+    IN _apellidoP varchar(45),
+    IN _apellidoM varchar(45),
+    IN _nick varchar(45),
+    IN _correo varchar(255),
+    IN _clave mediumtext,
+    IN _id_pais int,
+    IN _id_region int,
+    IN _id_comuna int,
+    IN _telefono varchar(13),
+    IN _rol int)
+BEGIN
+  INSERT INTO Usuario (nombres,ape_paterno,ape_materno,nick,correo,rol,id_nacionalidad,id_region,comuna,telefono)
+    VALUES (_nombres,_apellidoP,_apellidoM,_nick,_correo,_rol,_id_pais,_id_region,_id_comuna,_telefono);
+    INSERT INTO Validacion (pass) VALUES (_clave);
+END$$
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
