@@ -1,3 +1,6 @@
+<?php 
+	session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,7 +11,8 @@
 <body>
 	<nav>
 		<ul>
-			<li><a href="#">Iniciar sesion</a></li>
+			<li><?php echo $_SESSION['nombre']; ?></li>
+			<li><a href="login.php">Iniciar sesion</a></li>
 			<li><a href="registro.php">Registrarse</a></li>
 			<input type="text" placeholder="Buscar">
 		</ul>
