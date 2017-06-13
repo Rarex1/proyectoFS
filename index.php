@@ -25,10 +25,18 @@
 <body>
 	<nav>
 		<ul>
-			<li><?php echo $nick; ?></li>
-			<li><a href="login.php">Iniciar sesion</a></li>
-			<li><a href="script/operaciones/cerrarSesion.php">Cerrar sesion</a></li>
-			<li><a href="registro.php">Registrarse</a></li>
+			<?php 
+				if(!isset($_SESSION['id']))
+				{
+					echo "<li><a href='login.php'>Iniciar sesion</a></li>";
+					echo "<li><a href='registro.php'>Registrarse</a></li>";
+				}
+				if(isset($_SESSION['id']))
+				{
+					echo "<li><a href='script/operaciones/cerrarSesion.php'>Cerrar sesion</a></li>";
+				}
+			 ?>
+			 <li><?php echo ucfirst($nick); ?></li>
 			<input type="text" placeholder="Buscar">
 		</ul>
 	</nav>

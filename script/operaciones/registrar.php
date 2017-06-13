@@ -14,10 +14,14 @@
 
 	// echo $rol,$nombres,$apellidoP,$apellidoM,$nick,$correo,$clave,$verificacionClave,$pais,$region,$comuna,$telefono;
 
+	$hashed = crypt($clave, '$5$rounds=4759$Diva2017$');
+
+	$claveGuardar = substr($hashed, 24);
+
 	require_once('conexion.php');
 	$conexion = new conexion();
 	$link = $conexion->conectar();
-	$sql = "call registrar('".$nombres."','".$apellidoP."','".$apellidoM."','".$nick."','".$correo."','".$clave."',".$pais.",".$region.",".$comuna.",".$telefono.",".$rol.")";
+	$sql = "call registrar('".$nombres."','".$apellidoP."','".$apellidoM."','".$nick."','".$correo."','".$claveGuardar."',".$pais.",".$region.",".$comuna.",".$telefono.",".$rol.")";
 	if($link->query($sql) === TRUE)
 	{
 		echo "Se ingresaron correctamente los datos";

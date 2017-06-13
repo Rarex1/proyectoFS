@@ -20,12 +20,12 @@
 		$id_usuario = $linea['id_usuario'];
 	}
 
-	if($passIngresada == $pass)
+	if(hash_equals(('$5$rounds=4759$Diva2017$'.$pass), crypt($passIngresada, '$5$rounds=4759$Diva2017$')))
 	{
 		sesion::iniciarSesion($id_usuario);
 	}
 	else
 	{
-		echo "No se a podido iniciar sesion";
+		echo "Clave o usuario incorrecto";
 	}
  ?>
