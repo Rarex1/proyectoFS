@@ -1,5 +1,19 @@
-<?php 
+<?php	
 	session_start();
+
+	$nick = "";
+	if(isset($_SESSION['id']))
+	{
+		require_once('script/operaciones/conexion.php');
+		$conexion = new conexion();
+		$link = $conexion->conectar();
+		$sql = "select * from usuario where id_usuario = ".$_SESSION['id'].";";
+		$resultado = $link->query($sql);
+		while ($linea = mysqli_fetch_array($resultado))
+		{
+			$nick = $linea['nick'];
+		}
+	}
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,8 +25,9 @@
 <body>
 	<nav>
 		<ul>
-			<li><?php echo $_SESSION['nombre']; ?></li>
+			<li><?php echo $nick; ?></li>
 			<li><a href="login.php">Iniciar sesion</a></li>
+			<li><a href="script/operaciones/cerrarSesion.php">Cerrar sesion</a></li>
 			<li><a href="registro.php">Registrarse</a></li>
 			<input type="text" placeholder="Buscar">
 		</ul>

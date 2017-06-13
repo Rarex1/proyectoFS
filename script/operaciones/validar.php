@@ -2,29 +2,27 @@
 	require_once('conexion.php');
 	require_once('session.php');
 
-	$nombre;
-	$rol;
 	$buscador = $_POST['usuario'];
-	$pass;
 	$passIngresada = $_POST['password'];
+	$id_usuario;
+	$pass;
 
 	$conexion = new conexion();
 	$link = $conexion->conectar();
 
-	$sql = "select nick, correo, pass, rol from usuario usr, validacion vla where usr.id_usuario = vla.id_usuario and (usr.correo = '".$buscador."' or usr.nick = '".$buscador."');";
+	$sql = "select usr.id_usuario, correo, pass from usuario usr, validacion vla where usr.id_usuario = vla.id_usuario and (usr.correo = '".$buscador."' or usr.nick = '".$buscador."');";
 	$resultado = $link->query($sql);
 
 	while ($linea = mysqli_fetch_array($resultado))
 	{
 		$correo = $linea['correo'];
 		$pass = $linea['pass'];
-		$rol = $linea['rol'];
-		$nick = $linea['nick'];
+		$id_usuario = $linea['id_usuario'];
 	}
 
 	if($passIngresada == $pass)
 	{
-		sesion::iniciarSesion($nick, $rol);
+		sesion::iniciarSesion($id_usuario);
 	}
 	else
 	{
