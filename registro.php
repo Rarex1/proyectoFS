@@ -48,7 +48,7 @@
 			<input type="text" placeholder="Buscar">
 		</ul>
 	</nav>
-	<div class="contRegistro">
+	<div class="cont">
 		<div class="formRegistro">
 			<form action="script/operaciones/registrar.php" method="POST">
 				<select name="rol" id="">

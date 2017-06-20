@@ -23,6 +23,17 @@ nav ul li, nav ul li a
 	list-style: none;
 	padding: 0 0 0 20px;
 }
+.banderaIco
+{
+	height: 30px;
+}
+.imgPerfil
+{
+	border: solid 2px black;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;	
+}
 .dashboard
 {
 	width: 100%;
@@ -39,7 +50,7 @@ nav ul li, nav ul li a
 	background-color: red;
 	margin: 30px;
 }
-.contRegistro
+.cont
 {
 	width: 100%;
 	height: calc(100vh - 45px);

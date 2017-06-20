@@ -1,7 +1,10 @@
-<?php
+<?php 
 	session_start();
 
 	$nick = "";
+	$pais;
+	$nombrePais;
+	$iconoBanderaDec;
 	if(isset($_SESSION['id']))
 	{
 		require_once('script/operaciones/conexion.php');
@@ -12,6 +15,14 @@
 		while ($linea = mysqli_fetch_array($resultado))
 		{
 			$nick = $linea['nick'];
+			$pais = $linea['id_nacionalidad'];
+		}
+		$sqlPais = "select * from pais where id_pais = ".$pais.";";
+		$resultado = $link->query($sqlPais);
+		while ($linea = mysqli_fetch_array($resultado))
+		{
+			$nombrePais = $linea['nombre_pais'];
+			$iconoBanderaDec = $linea['bandera'];
 		}
 	}
  ?>
@@ -25,7 +36,7 @@
 <body>
 	<nav>
 		<ul>
-			<?php
+			<?php 
 				if(!isset($_SESSION['id']))
 				{
 					echo "<li><a href='login.php'>Iniciar sesion</a></li>";
@@ -42,13 +53,13 @@
 			<input type="text" placeholder="Buscar">
 		</ul>
 	</nav>
-	<section class="dashboard">
-		<div class="foto"></div>
-		<div class="foto"></div>
-		<div class="foto"></div>
-		<div class="foto"></div>
-		<div class="foto"></div>
-	</section>
+	<div class="cont">
+		<p>Nacionalidad: <?php echo $nombrePais; ?></p><?php echo '<img class="banderaIco" src="data:image/jpeg;base64,'.base64_encode( $iconoBanderaDec ).'"/>'; ?>
+		<div class="imgPerfil">
+			<img src="" alt="">
+		</div>
+	</div>
+	
 </body>
 <script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="script/script.js"></script>
