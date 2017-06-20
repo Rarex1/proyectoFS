@@ -1,28 +1,23 @@
-<?php 
+<?php
 	session_start();
 
 	$nick = "";
 	$pais;
 	$nombrePais;
-	$iconoBanderaDec;
+	$iconoBandera;
 	if(isset($_SESSION['id']))
 	{
 		require_once('script/operaciones/conexion.php');
 		$conexion = new conexion();
 		$link = $conexion->conectar();
-		$sql = "select * from usuario where id_usuario = ".$_SESSION['id'].";";
+		$sql = "SELECT usu.*, pai.bandera, pai.nombre_pais FROM usuario usu, pais pai WHERE usu.id_usuario = ".$_SESSION['id'].";";
 		$resultado = $link->query($sql);
 		while ($linea = mysqli_fetch_array($resultado))
 		{
 			$nick = $linea['nick'];
 			$pais = $linea['id_nacionalidad'];
-		}
-		$sqlPais = "select * from pais where id_pais = ".$pais.";";
-		$resultado = $link->query($sqlPais);
-		while ($linea = mysqli_fetch_array($resultado))
-		{
 			$nombrePais = $linea['nombre_pais'];
-			$iconoBanderaDec = $linea['bandera'];
+			$iconoBandera = $linea['bandera'];
 		}
 	}
  ?>
@@ -32,11 +27,32 @@
 	<meta charset="UTF-8">
 	<title>First Sight</title>
 	<link rel="stylesheet" href="style/style.css">
+	<script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+	  $("input[name='foto']").on("change", function(){
+	    FormData = new FormData($("#formulario")[0]);
+	    ruta = "script/operaciones/actualizarImagen.php";
+	    $.ajax({
+	      url: ruta,
+	      type: "POST",
+	      data: FormData,
+	      contentType: false,
+	      processData: false,
+	      success: function(datos)
+	      {
+	        $("#imgTagPerfil").attr("src", datos);
+	      }
+	    });
+	  });
+	});
+
+	</script>
 </head>
 <body>
 	<nav>
 		<ul>
-			<?php 
+			<?php
 				if(!isset($_SESSION['id']))
 				{
 					echo "<li><a href='login.php'>Iniciar sesion</a></li>";
@@ -54,13 +70,14 @@
 		</ul>
 	</nav>
 	<div class="cont">
-		<p>Nacionalidad: <?php echo $nombrePais; ?></p><?php echo '<img class="banderaIco" src="data:image/jpeg;base64,'.base64_encode( $iconoBanderaDec ).'"/>'; ?>
+		<p>Nacionalidad: <?php echo $nombrePais; ?></p><img src="<?php echo 'ftp://localhost/'.$iconoBandera; ?>" alt="Imagen de bandera">
 		<div class="imgPerfil">
-			<img src="" alt="">
+			<form method="post" id="formulario" enctype="multipart/form-data" style="height: 100%; width:100%;">
+				<input type="file" name="foto" style="height: 100%; width:100%; opacity: 0;">
+				<img src="" id="imgTagPerfil" alt="">
+			</form>
 		</div>
 	</div>
-	
+
 </body>
-<script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="script/script.js"></script>
 </html>
