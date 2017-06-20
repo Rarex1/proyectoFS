@@ -33,6 +33,15 @@ nav ul li, nav ul li a
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
+	overflow: hidden;
+	position: relative;
+}
+#imgTagPerfil
+{
+	position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
 }
 .dashboard
 {

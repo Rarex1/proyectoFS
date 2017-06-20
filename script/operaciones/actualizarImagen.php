@@ -1,11 +1,21 @@
 <?php
   if(isset($_FILES["foto"]))
   {
+    session_start();
+
+    require_once('conexion.php');
+    $conexionSQL = new conexion();
+    $link = $conexionSQL->conectar();
+
+
     $archivo = $_FILES["foto"];
     $nombre = $archivo["name"];
     $nombrePro = $archivo["tmp_name"];
     $carpeta = "ftp://localhost/perfiles/";
     $src = $carpeta.$nombre;
+
+    $sql = "UPDATE `usuario` SET `perfil_img`= '".$src."' WHERE usuario.id_usuario = ".$_SESSION['id'].";";
+    $link->query($sql);
 
     $conexion = ftp_connect("localhost");
 
@@ -17,7 +27,6 @@
     else {
       echo "No se puedo subir el archivo";
     }
-
-    ftp_close($conexion);
+    mysqli_close($link);
   }
  ?>

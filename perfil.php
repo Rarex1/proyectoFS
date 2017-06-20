@@ -5,6 +5,7 @@
 	$pais;
 	$nombrePais;
 	$iconoBandera;
+	$imagenPerfil;
 	if(isset($_SESSION['id']))
 	{
 		require_once('script/operaciones/conexion.php');
@@ -18,6 +19,7 @@
 			$pais = $linea['id_nacionalidad'];
 			$nombrePais = $linea['nombre_pais'];
 			$iconoBandera = $linea['bandera'];
+			$imagenPerfil = $linea['perfil_img'];
 		}
 	}
  ?>
@@ -31,12 +33,12 @@
 	<script type="text/javascript">
 	$(function(){
 	  $("input[name='foto']").on("change", function(){
-	    FormData = new FormData($("#formulario")[0]);
+	    datosFormulario = new FormData($("#formulario")[0]);
 	    ruta = "script/operaciones/actualizarImagen.php";
 	    $.ajax({
 	      url: ruta,
 	      type: "POST",
-	      data: FormData,
+	      data: datosFormulario,
 	      contentType: false,
 	      processData: false,
 	      success: function(datos)
@@ -72,12 +74,11 @@
 	<div class="cont">
 		<p>Nacionalidad: <?php echo $nombrePais; ?></p><img src="<?php echo 'ftp://localhost/'.$iconoBandera; ?>" alt="Imagen de bandera">
 		<div class="imgPerfil">
-			<form method="post" id="formulario" enctype="multipart/form-data" style="height: 100%; width:100%;">
-				<input type="file" name="foto" style="height: 100%; width:100%; opacity: 0;">
-				<img src="" id="imgTagPerfil" alt="">
+			<form method="post" id="formulario" enctype="multipart/form-data" style="height: 100%; width:100%; position: relative;">
+				<input type="file" name="foto" style="height: 100%; width:100%; opacity: 0; z-index: 2; position: absolute;">
+				<img src="<?php echo $imagenPerfil; ?>" id="imgTagPerfil" alt="">
 			</form>
 		</div>
 	</div>
-
 </body>
 </html>
